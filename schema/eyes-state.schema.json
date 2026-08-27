@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/SYSTEMS-OPERATOR/EYES/blob/main/schema/eyes-state.schema.json",
+  "$id": "https://raw.githubusercontent.com/SYSTEMS-OPERATOR/EYES/main/schema/eyes-state.schema.json",
   "title": "EYES v2 observation",
   "description": "A current-state and future-outlook alignment observation.",
   "type": "object",
@@ -70,8 +70,8 @@
     },
     "rendered": {
       "type": "string",
-      "minLength": 2,
-      "description": "Optional rendered pair. The state glyph precedes the outlook glyph."
+      "pattern": "^[🔵🟢🟡🟠🔴🟣🟤⚫]{2}$",
+      "description": "Optional rendered pair containing exactly two EYES glyphs. The state glyph precedes the outlook glyph; semantic consistency with state/outlook is a producer conformance requirement."
     },
     "extensions": {
       "type": "object",
