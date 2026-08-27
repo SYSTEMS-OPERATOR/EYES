@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/SYSTEMS-OPERATOR/EYES/main/schema/eyes-state.schema.json",
+  "title": "EYES v2 observation",
+  "description": "A current-state and future-outlook alignment observation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "state",
+    "outlook"
+  ],
+  "properties": {
+    "version": {
+      "const": "2.0-draft"
+    },
+    "state": {
+      "$ref": "#/$defs/colorName",
+      "description": "Current condition interpreted in light of relevant past events."
+    },
+    "outlook": {
+      "$ref": "#/$defs/colorName",
+      "description": "Expected future condition under current evidence."
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC is preferred when the record crosses system boundaries."
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "pair",
+        "audit",
+        "structured"
+      ]
+    },
+    "state_basis": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "outlook_basis": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "outlook": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "minProperties": 1
+    },
+    "rendered": {
+      "type": "string",
+      "pattern": "^[🔵🟢🟡🟠🔴🟣🟤⚫]{2}$",
+      "description": "Optional rendered pair containing exactly two EYES glyphs. The state glyph precedes the outlook glyph; semantic consistency with state/outlook is a producer conformance requirement."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced implementation metadata that does not alter core semantics.",
+      "propertyNames": {
+        "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "colorName": {
+      "type": "string",
+      "enum": [
+        "blue",
+        "green",
+        "yellow",
+        "orange",
+        "red",
+        "purple",
+        "brown",
+        "black"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "version": "2.0-draft",
+      "state": "blue",
+      "outlook": "purple",
+      "observed_at": "2026-08-20T00:48:47Z",
+      "profile": "pair",
+      "rendered": "🔵🟣"
+    }
+  ]
+}
