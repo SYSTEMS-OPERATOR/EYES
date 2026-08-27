@@ -151,7 +151,31 @@ as the control mechanism itself:
 - recovery or manual reset behavior belongs to the host policy and SHOULD be
   auditable.
 
+These statements are host-policy guidance, not a continuation of the v1 control
+state machine. EYES v2 core does **not** define or activate a forced-recursion
+lock, a manual-reset requirement, or any other legacy control merely because a
+historical EYES state is rendered.
+
 ## 8. Legacy compatibility
+
+Legacy behavior is archived by default and remains outside EYES v2 core. An
+implementation MAY expose an explicit, opt-in compatibility profile when it
+must reproduce a historical integration. It MUST NOT silently carry legacy
+controls forward as current behavior.
+
+A compatibility profile may preserve source-specific behavior such as:
+
+- forced-recursion lock or manual-reset semantics;
+- mandatory response prefixes;
+- `{EYES_LOGIC}` / `{EYES_EMO}` fields;
+- universal multi-clock timestamp headers;
+- CI header injection;
+- dual logical/emotional positional conventions; or
+- historical pair symmetry.
+
+Those behaviors remain historical or adapter-level semantics unless the
+compatibility profile explicitly declares them. They do not alter the v2
+state/outlook axis contract.
 
 ### 8.1 Symmetric v1 pairs
 
@@ -206,5 +230,7 @@ A conforming v2 producer:
    vocabulary;
 2. preserves left-to-right state/outlook order;
 3. permits asymmetric pairs;
-4. treats outlook as revisable; and
-5. does not silently reinterpret legacy mixed pairs as v2 observations.
+4. treats outlook as revisable;
+5. does not silently reinterpret legacy mixed pairs as v2 observations; and
+6. does not activate legacy controls unless an explicit compatibility profile
+   has been selected.
