@@ -75,6 +75,8 @@ machine-readable record.
   reconstruction of the 2025 source definition.
 - [`archive/BOX-header-v1.1.md`](archive/BOX-header-v1.1.md) — preserved BOX
   header extension and its known erratum.
+- [`PLUTCHIK-CROSSWALK.md`](PLUTCHIK-CROSSWALK.md) — experimental, non-normative
+  adapter for Plutchik-style human/AI affect vectors alongside EYES state/outlook.
 
 ## Design boundaries
 
